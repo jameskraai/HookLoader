@@ -1,5 +1,7 @@
 <?php
 
+namespace JKraai\Hook;
+
 /**
  * An implementing type provides an api to add Action and Filter wordpress
  * hooks. The intention is that the added hooks will then be handled

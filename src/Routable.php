@@ -1,5 +1,7 @@
 <?php
 
+namespace JKraai\Hook;
+
 /**
  * WordPress does not natively support "routes" per se. However we are able to
  * emulate much of the http verbs we expect by using default Action hooks
