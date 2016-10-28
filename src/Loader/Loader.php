@@ -124,4 +124,14 @@ class Loader implements Hookable, Routable, Registerable
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function post($query, $callback)
+    {
+        $this->addAction("admin_post_{$query}", $callback, 10, 1);
+
+        return $this;
+    }
 }

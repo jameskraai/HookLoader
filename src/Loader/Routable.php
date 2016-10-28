@@ -33,15 +33,4 @@ interface Routable
      * @return $this
      */
     public function post($query, $callback);
-
-    /**
-     * Respond to an incoming GET request.
-     *
-     * @param  string $query Query key we are listening for.
-     * @param  string $value Value of the query to listen for.
-     * @param  callable|string Invoked when the query is found.
-     *
-     * @return $this
-     */
-    public function get($query, $value, $callback);
 }
