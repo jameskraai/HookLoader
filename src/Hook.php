@@ -10,7 +10,7 @@ use InvalidArgumentException;
  * A Hook can be either an Action or a Filter Hook. As far as our Loader is
  * concerned it is merely a "Hook".
  */
-class Hook implements HookType
+class Hook implements HookType, Cloneable
 {
     /**
      * Name of the Hook we would like to reference.
@@ -157,6 +157,13 @@ class Hook implements HookType
         throw new RuntimeException($errorMessage);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function __clone()
+    {
+        return new static();
+    }
 
     /**
      * Convenience method for generating error messages when we are trying to
