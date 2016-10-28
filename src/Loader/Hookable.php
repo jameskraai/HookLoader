@@ -3,11 +3,11 @@
 namespace JKraai\Hook;
 
 /**
- * An implementing type provides an api to add Action and Filter wordpress
- * hooks. The intention is that the added hooks will then be handled
- * by WordPress.
+ * An implementing class is "hookable" in the sense that we are able to attach
+ * WordPress hooks to it. Specifically we are able to add Action and Filter
+ * hooks to it.
  */
-interface LoaderType
+interface Hookable
 {
     /**
      * Attach a callback to the named Action.
