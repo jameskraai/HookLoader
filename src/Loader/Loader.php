@@ -3,6 +3,7 @@
 namespace JKraai\Hook;
 
 use JKraai\Hook\WordPressDelegate as WPDelegate;
+
 /**
  * This implementation of these various interfaces create what I would consider
  * the "core" of a WordPress plugin. In that we are able to add any Action or
@@ -131,6 +132,22 @@ class Loader implements Hookable, Routable, Registerable
     public function post($query, $callback)
     {
         $this->addAction("admin_post_{$query}", $callback, 10, 1);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function ajax($query, $callback, $public = false)
+    {
+        $hookName = "wp_ajax_{$query}";
+
+        if ($public) {
+            $hookName = "wp_ajax_nopriv_{$query}";
+        }
+
+        $this->addAction($hookName, $callback, 10, 1);
 
         return $this;
     }
