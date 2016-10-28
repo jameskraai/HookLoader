@@ -92,4 +92,36 @@ class Loader implements Hookable, Routable, Registerable
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addAction($name, $callback, $priority, $numberOfArguments)
+    {
+        $action = $this->hookFactory->make();
+        $action->setName($name);
+        $action->setCallback($callback);
+        $action->setPriority($priority);
+        $action->setNumberOfParameters($numberOfArguments);
+
+        $this->actions[] = $action;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addFilter($name, $callback, $priority, $numberOfArguments)
+    {
+        $filter = $this->hookFactory->make();
+        $filter->setName($name);
+        $filter->setCallback($callback);
+        $filter->setPriority($priority);
+        $filter->setNumberOfParameters($numberOfArguments);
+
+        $this->filters[] = $filter;
+
+        return $this;
+    }
 }
