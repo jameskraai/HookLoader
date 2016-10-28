@@ -1,5 +1,8 @@
 <?php
 
+namespace JKraai\Hook\Tests;
+
+use Mockery;
 use PHPUnit_Framework_TestCase as PHPUnit;
 
 /**
