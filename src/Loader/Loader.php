@@ -34,7 +34,7 @@ class Loader implements Hookable, Routable, Registerable
      * @var WPDelegate
      */
     public $wpDelegate;
-    
+
     /**
      * Action hooks that we have added. This will be an array
      * of HookType instances.
