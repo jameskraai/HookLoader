@@ -20,6 +20,22 @@ use JKraai\Hook\WordPressDelegate as WPDelegate;
 class Loader implements Hookable, Routable, Registerable
 {
     /**
+     * Factory that makes new Hooks. This is used when we add a new Action or
+     * Filter Hook to this Loader.
+     *
+     * @var Factory
+     */
+    public $hookFactory;
+
+    /**
+     * We are able to use this to delegate the task of making global function
+     * calls to WordPress.
+     *
+     * @var WPDelegate
+     */
+    public $wpDelegate;
+    
+    /**
      * Action hooks that we have added. This will be an array
      * of HookType instances.
      *
@@ -36,22 +52,6 @@ class Loader implements Hookable, Routable, Registerable
      * @var array
      */
     protected $filters = array();
-
-    /**
-     * Factory that makes new Hooks. This is used when we add a new Action or
-     * Filter Hook to this Loader.
-     *
-     * @var Factory
-     */
-    protected $hookFactory;
-
-    /**
-     * We are able to use this to delegate the task of making global function
-     * calls to WordPress.
-     *
-     * @var WPDelegate
-     */
-    protected $wpDelegate;
 
     /**
      * Loader constructor.
