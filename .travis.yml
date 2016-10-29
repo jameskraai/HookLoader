@@ -7,4 +7,5 @@
     - composer install
     - composer dump-autoload -o
   script: phpunit
-  after_success: coveralls
+  after_success:
+    - bash <(curl -s https://codecov.io/bash)
