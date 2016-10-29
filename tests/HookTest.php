@@ -2,6 +2,7 @@
 
 namespace JKraai\Hook\Tests;
 
+use Closure;
 use RuntimeException;
 use JKraai\Hook\Hook;
 use InvalidArgumentException;
@@ -22,7 +23,7 @@ class HookTest extends TestCase
     {
         $hook = $this->getHook();
 
-        $this->assertInstanceOf($this->getHookClass(), $hook->setName("Valid name"));
+        $this->assertInstanceOf(Hook::class, $hook->setName("Valid name"));
     }
 
     /**
@@ -75,11 +76,161 @@ class HookTest extends TestCase
     {
         $hook = $this->getHook();
 
-        $callback = function () {
-            return true;
-       };
+        $callback = $this->makeCallback();
 
-       $this->assertInstanceOf($this->getHookClass(), $hook->setCallback($callback));
+        $this->assertInstanceOf(Hook::class, $hook->setCallback($callback));
+    }
+
+    /**
+     * Test that we are able to retrieve the callable callback when it's set.
+     *
+     * @covers \JKraai\Hook\Hook::getCallback
+     */
+    public function testGetCallbackReturnsCallable()
+    {
+        $hook = $this->getHook();
+
+        $hook->setCallback($this->makeCallback());
+
+        $this->assertInstanceOf(Closure::class, $hook->getCallback());
+    }
+
+    /**
+     * Test that trying to retrieve the callback before it's been set
+     * will raise an error.
+     *
+     * @expectedException RuntimeException
+     * @covers \JKraai\Hook\Hook::getCallback
+     */
+    public function testGetCallbackPriorToSetRaisesError()
+    {
+        $hook = $this->getHook();
+
+        $hook->getCallback();
+    }
+
+    /**
+     * Test that we are able to set a valid priority.
+     *
+     * @covers \JKraai\Hook\Hook::setPriority
+     */
+    public function testAbleToSetValidPriority()
+    {
+        $hook = $this->getHook();
+
+        $this->assertInstanceOf(Hook::class, $hook->setPriority(1));
+    }
+
+    /**
+     * Test that setting an invalid priority will raise an error.
+     *
+     * @expectedException InvalidArgumentException
+     * @covers \JKraai\Hook\Hook::setPriority
+     * @covers \JKraai\Hook\Hook::invalidTypeMessage
+     */
+    public function testSettingInvalidPriorityRaisesError()
+    {
+        $hook = $this->getHook();
+
+        $hook->setPriority("1");
+    }
+
+    /**
+     * Test that we are able to get the priority once it's been set.
+     *
+     * @covers \JKraai\Hook\Hook::getPriority
+     */
+    public function testGetPriorityThatIsset()
+    {
+        $hook = $this->getHook();
+
+        $hook->setPriority(1);
+
+        $this->assertInternalType('int', $hook->getPriority());
+    }
+
+    /**
+     * Test that trying to get the priority before it's been set will raise
+     * an error.
+     *
+     * @expectedException RuntimeException
+     * @covers \JKraai\Hook\Hook::getPriority
+     * @covers \JKraai\Hook\Hook::propertyNotSetMessage
+     */
+    public function testGetPriorityBeforeSetRaisesError()
+    {
+        $hook = $this->getHook();
+
+        $hook->getPriority();
+    }
+
+    /**
+     * Test that we are able to set a valid number of parameters.
+     *
+     * @covers \JKraai\Hook\Hook::setNumberOfParameters
+     */
+    public function testSetValidNumberOfParameters()
+    {
+        $hook = $this->getHook();
+
+        $this->assertInstanceOf(Hook::class, $hook->setNumberOfParameters(1));
+    }
+
+    /**
+     * Test that trying to set the method with an invalid type
+     * will raise an error.
+     *
+     * @expectedException InvalidArgumentException
+     * @covers \JKraai\Hook\Hook::setNumberOfParameters
+     */
+    public function testSettingInvalidNumberOfParametersRaisesError()
+    {
+        $hook = $this->getHook();
+
+        $hook->setNumberOfParameters("1");
+    }
+
+    /**
+     * Test that we are able to retrieve the number of parameters
+     * once it has been set.
+     *
+     * @covers \JKraai\Hook\Hook::getNumberOfParameters
+     */
+    public function testGetNumberOfParametersThatIsset()
+    {
+        $hook = $this->getHook();
+
+        $hook->setNumberOfParameters(1);
+
+        $this->assertInternalType('int', $hook->getNumberOfParameters());
+    }
+
+    /**
+     * Test that trying to get the number of parameters prior
+     * to being set will raise an error.
+     *
+     * @expectedException RuntimeException
+     * @covers \JKraai\Hook\Hook::getNumberOfParameters
+     */
+    public function testGetNumberOfParamsPriorToSetRaisesError()
+    {
+        $hook = $this->getHook();
+
+        $hook->getNumberOfParameters();
+    }
+
+    /**
+     * Test that we are able to clone the Hook class.
+     *
+     * @covers \JKraai\Hook\Hook::__clone
+     */
+    public function testIsCloneable()
+    {
+        $hook = $this->getHook();
+        
+        $clonedHook = clone $hook;
+
+        $this->assertInstanceOf(Hook::class, $clonedHook);
     }
 
     /**
@@ -93,13 +244,16 @@ class HookTest extends TestCase
     }
 
     /**
-     * Retrieve the fully qualified class name of our Hook class. This is used
-     * frequently by our tests that are fluent interfaces.
+     * Returns an anonymous function we can use for testing.
      *
-     * @return string
+     * @return Closure
      */
-    protected function getHookClass()
+    protected function makeCallback()
     {
-        return get_class($this->getHook());
+        $callback = function () {
+            // callable
+        };
+
+        return $callback;
     }
 }
