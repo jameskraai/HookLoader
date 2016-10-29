@@ -14,5 +14,4 @@ interface Cloneable
      * @return static
      */
     public function __clone();
-
 }
