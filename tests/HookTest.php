@@ -227,7 +227,7 @@ class HookTest extends TestCase
     public function testIsCloneable()
     {
         $hook = $this->getHook();
-        
+
         $clonedHook = clone $hook;
 
         $this->assertInstanceOf(Hook::class, $clonedHook);
