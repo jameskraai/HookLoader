@@ -1,5 +1,5 @@
 {
-    "name": "jkraai/wp-plugin-loader",
+    "name": "jkraai/wp-hook-loader",
     "description": "WordPress Plugin Hook loader",
     "type": "library",
     "license": "MPL",
