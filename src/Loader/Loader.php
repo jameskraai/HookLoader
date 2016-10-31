@@ -97,7 +97,7 @@ class Loader implements Hookable, Routable, Registerable
     /**
      * {@inheritdoc}
      */
-    public function addAction($name, $callback, $priority, $numberOfArguments)
+    public function addAction($name, $callback, $priority = 10, $numberOfArguments = 1)
     {
         $action = $this->hookFactory->make();
         $action->setName($name);
@@ -113,7 +113,7 @@ class Loader implements Hookable, Routable, Registerable
     /**
      * {@inheritdoc}
      */
-    public function addFilter($name, $callback, $priority, $numberOfArguments)
+    public function addFilter($name, $callback, $priority = 10, $numberOfArguments = 1)
     {
         $filter = $this->hookFactory->make();
         $filter->setName($name);

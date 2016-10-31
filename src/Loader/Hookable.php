@@ -19,7 +19,7 @@ interface Hookable
      *
      * @return $this
      */
-    public function addAction($name, $callback, $priority, $numberOfArguments);
+    public function addAction($name, $callback, $priority = 10, $numberOfArguments = 1);
 
     /**
      * Attach a callback to the named Filter.
@@ -29,5 +29,5 @@ interface Hookable
      * @param integer         $priority          Specifies order of execution for this callback.
      * @param integer         $numberOfArguments Number of arguments this callback expects.
      */
-    public function addFilter($name, $callback, $priority, $numberOfArguments);
+    public function addFilter($name, $callback, $priority = 10, $numberOfArguments = 1);
 }
