@@ -74,10 +74,8 @@ class Hook implements HookType, Cloneable
     /**
      * {@inheritdoc}
      */
-    public function setCallback(callable $callback)
+    public function setCallback($callback)
     {
-        // We do not do any type checking here since the callable type hint
-        // enables PHP to do that for us.
         $this->callback = $callback;
 
         return $this;

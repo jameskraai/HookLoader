@@ -36,7 +36,7 @@ interface HookType
      *
      * @return callable
      */
-    public function setCallback(callable $callback);
+    public function setCallback($callback);
 
     /**
      * Retrieve the callback.
